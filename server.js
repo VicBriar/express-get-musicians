@@ -7,9 +7,9 @@ const { response } = require("express");
 const port = 3000;
 
 //TODO
-app.get('/musicians', async (request,response) => {
-    let musicians = await Musician.findAll()
-    response.json(musicians)
+app.get('/musician/:id', async (request, response) => {
+    let musician = await Musician.findByPk(request.params.id);
+    response.json(musician);
 })
 
 app.listen(port, () => {
