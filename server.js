@@ -64,6 +64,22 @@ app.put('/musicians/:id', async (request, response) =>{
     }
 })
 
+app.delete('/musicians/:id', async (request, response) => {
+    try{
+        let id = request.params.id;
+        let musician = await Musician.findByPk(id);
+        if(musician){
+            musician.destroy()
+            response.status(200).send("deleletion sucessful!")
+        }else{
+            response.status(404).send("musician not found!")
+        }
+    }catch (err){
+        console.error(err)
+        response.status(500).send("error!")
+    }
+})
+
 app.listen(port, () => {
     sequelize.sync();
     console.log(`Listening on port ${port}`)
