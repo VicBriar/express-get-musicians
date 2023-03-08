@@ -6,6 +6,20 @@ const {sequelize} = require("./db");
 const port = 3000;
 
 //TODO
+app.get ('/musicians', async(request,response) =>{
+    try{
+        let musicians = await Musician.findAll();
+        if(musicians){
+            response.status(200).json(musicians)
+        }else{
+            response.status(500).send("musicians not found")
+            console.log("musicians not found")
+        } 
+    }catch(err){
+        console.error(err);
+    }
+    
+})
 app.get('/musician/:id', async (request, response) => {
     let musician = await Musician.findByPk(request.params.id);
     response.json(musician);
