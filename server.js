@@ -40,8 +40,28 @@ app.post('/musicians', async(request,response) => {
             console.error("no body provided")
             response.send(400).send("you must provide a musician in body")
         }
-    }catch(err){}
+    }catch(err){
+        console.error(err)
+        response.status(500).send("error")
+    }
     
+})
+
+app.put('/musicians/:id', async (request, response) =>{
+    try{
+        let id = request.params.id;
+        let updatedMusician = request.body
+        let musician  = await Musician.findByPk(id);
+        if(musician){
+            musician.set(updatedMusician);
+            await musician.save();
+            response.status(200).send("musician updated");
+            console.log(`musician ${musician} has been updated`);
+        }
+    }catch(err){
+        response.status(500).send("error");
+        console.error(err);
+    }
 })
 
 app.listen(port, () => {
