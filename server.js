@@ -5,6 +5,9 @@ const {sequelize} = require("./db");
 
 const port = 3000;
 
+app.use(express.json({extended: true}));
+app.use(express.urlencoded({extended: true}));
+
 //TODO
 app.get ('/musicians', async(request,response) =>{
     try{
@@ -20,10 +23,13 @@ app.get ('/musicians', async(request,response) =>{
     }
     
 })
+
 app.get('/musician/:id', async (request, response) => {
     let musician = await Musician.findByPk(request.params.id);
     response.json(musician);
 })
+
+
 
 app.listen(port, () => {
     sequelize.sync();
