@@ -31,7 +31,7 @@ npm start
 
 ## Part 3: `POST`, `PUT`, and `DELETE` Musicians
 1. In the `server.js` file, include necessary middleware for parsing data provided in the request of the body.
-2. Create an express route for creating (adding) a new restaurant on your musician database. For example, `/musicians` via a `POST` request would create a new database entry based on what is contained in the HTTP request body.
+2. Create an express route for creating (adding) a new musician on your musician database. For example, `/musicians` via a `POST` request would create a new database entry based on what is contained in the HTTP request body.
 3. Create an express route for updating (replacing) an existing musician with a new musician on your musician database based on ID. For example, `/musicans/2` would update the musician with an ID of 2 with the content in the HTTP request body.
 4. Create an express route for deleting (removing) a musician on your database. For example, `musicians/2` would delete the musician with an ID of 2 from the database.
 5. Test your endpoint using Postman and make sure to use the correct HTTP Verb when making your requests to your server.
