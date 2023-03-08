@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const {Musician} = require("./Musician")
 const {sequelize} = require("./db");
-const { response } = require("express");
 
 const port = 3000;
 
