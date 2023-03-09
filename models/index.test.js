@@ -1,4 +1,4 @@
-const {sequelize} = require('./db');
+const {sequelize} = require('../config/db');
 const {Band, Musician} = require('./index')
 
 describe('Band and Musician Models', () => {
