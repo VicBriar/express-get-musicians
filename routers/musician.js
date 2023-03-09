@@ -27,6 +27,7 @@ router.get('/:id', async (request, response) => {
 router.post(
 '/',
 check("name").not().isEmpty().trim().withMessage("Name cannot be empty"),
+check("name").isLength({min: 2, max: 20}).withMessage("Name must be longer than 2 characters, and no longer than 20"),
 check("instrument").not().isEmpty().trim().withMessage("Instrument cannot be empty"),
 async(request,response) => {
     let errors = validationResult(request);
