@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {Musician} = require('../models/index')
+const {check, body, validationResult} = require('express-validator')
 
 
 router.get ('/', async(request,response) =>{
@@ -23,19 +24,29 @@ router.get('/:id', async (request, response) => {
     response.json(musician);
 })
 
-router.post('/', async(request,response) => {
-    try{
-        let newMusician = request.body
-        if(newMusician){
-            await Musician.create(newMusician);
-            response.status(200).send(`new musician was sucessfully added to database!`)
-        } else {
-            console.error("no body provided")
-            response.send(400).send("you must provide a musician in body")
+router.post(
+'/',
+check("name").not().isEmpty().trim().withMessage("Name cannot be empty"),
+check("instrument").not().isEmpty().trim().withMessage("Instrument cannot be empty"),
+async(request,response) => {
+    let errors = validationResult(request);
+    if(errors.isEmpty()){  
+        try{
+            let newMusician = request.body
+            if(newMusician){
+                await Musician.create(newMusician);
+                let musicians = await Musician.findAll();
+                response.status(200).send(musicians)
+            } else {
+                console.error("no body provided")
+                response.send(400).send("you must provide a musician in body")
+            }
+        }catch(err){
+            console.error(err)
+            response.status(500).send("error")
         }
-    }catch(err){
-        console.error(err)
-        response.status(500).send("error")
+    }else{
+        response.status(400).json({errors: errors.array()})
     }
     
 })
